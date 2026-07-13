@@ -10,7 +10,7 @@ export default function Navbar() {
           
           {/* Logo Area */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/">
+            <Link href="https://drshettyschildrensclinic.com/">
               <div className="relative w-48 h-16">
                  {/* This pulls your logo.png from the public folder */}
                  <Image 
@@ -25,14 +25,26 @@ export default function Navbar() {
           </div>
 
           {/* Center Links (Desktop only) */}
-          <div className="hidden md:flex space-x-8">
-            <Link href="/" className="text-[#009ffa] font-medium text-lg">
+          <div className="hidden md:flex space-x-8 items-center">
+            <Link href="https://drshettyschildrensclinic.com/" className="text-[#009ffa] font-medium text-lg">
               Home
+            </Link>
+            <Link href="https://drshettyschildrensclinic.com/about-us/" className="text-gray-800 hover:text-[#009ffa] font-medium text-lg transition-colors">
+              About Us
+            </Link>
+            <Link href="https://drshettyschildrensclinic.com/our-services/" className="text-gray-800 hover:text-[#009ffa] font-medium text-lg transition-colors">
+              Our Services
+            </Link>
+            <Link href="https://book.drshettyschildrensclinic.com/" className="text-gray-800 hover:text-[#009ffa] font-medium text-lg transition-colors">
+              Book Appointment
             </Link>
           </div>
 
-          {/* Contact Button */}
-          <div className="flex items-center">
+          {/* Contact Button & Divider */}
+          <div className="flex items-center space-x-6">
+            {/* Vertical Divider matching the screenshot */}
+            <div className="hidden md:block h-10 w-px bg-gray-200"></div>
+
             <a 
               href="https://wa.me/917019951526" 
               target="_blank" 
