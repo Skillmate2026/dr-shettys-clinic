@@ -41,6 +41,9 @@ export default function Navbar() {
               <Link href="https://drshettyschildrensclinic.com/our-services/" className="text-gray-800 hover:text-[#009ffa] font-medium text-lg transition-colors">
                 Our Services
               </Link>
+              <Link href="https://drshettyschildrensclinic.com/gallery/" className="text-gray-800 hover:text-[#009ffa] font-medium text-lg transition-colors">
+                Gallery
+              </Link>
               <Link href="https://book.drshettyschildrensclinic.com/" className="text-gray-800 hover:text-[#009ffa] font-medium text-lg transition-colors">
                 Book Appointment
               </Link>

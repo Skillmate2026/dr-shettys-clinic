@@ -10,7 +10,7 @@ export default function SchedulePage() {
     { day: 'Thursday', time: '6:00 PM – 10:00 PM' },
     { day: 'Friday', time: '6:00 PM – 10:00 PM' },
     { day: 'Saturday', time: '6:00 PM – 10:00 PM' },
-    { day: 'Sunday', time: '6:00 PM – 10:00 PM' },
+    { day: 'Sunday', time: 'Closed' }, // Updated to Closed
   ];
 
   return (
@@ -80,12 +80,26 @@ export default function SchedulePage() {
               </div>
 
               <div className="space-y-3">
-                {staticSchedule.map((item, idx) => (
-                  <div key={idx} className="w-full flex justify-between items-center p-3 rounded-xl border-l-4 text-sm bg-slate-50 border-[#009ffa]">
-                    <span className="font-bold tracking-tight text-[#001321]">{item.day}</span>
-                    <span className="text-xs font-bold px-2 py-1 rounded-lg bg-white text-[#009ffa] shadow-sm">{item.time}</span>
-                  </div>
-                ))}
+                {staticSchedule.map((item, idx) => {
+                  const isClosed = item.time.toLowerCase() === 'closed';
+                  return (
+                    <div 
+                      key={idx} 
+                      className={`w-full flex justify-between items-center p-3 rounded-xl border-l-4 text-sm bg-slate-50 ${
+                        isClosed ? 'border-gray-300 opacity-60' : 'border-[#009ffa]'
+                      }`}
+                    >
+                      <span className={`font-bold tracking-tight ${isClosed ? 'text-gray-500' : 'text-[#001321]'}`}>
+                        {item.day}
+                      </span>
+                      <span className={`text-xs font-bold px-2 py-1 rounded-lg bg-white shadow-sm ${
+                        isClosed ? 'text-gray-500' : 'text-[#009ffa]'
+                      }`}>
+                        {item.time}
+                      </span>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>

@@ -9,8 +9,8 @@ export default function BookingForm() {
   const [isClient, setIsClient] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [isRescheduling, setIsRescheduling] = useState(false);
   
-  // TODO: Replace 'YOUR_FORM_ID' with actual Formspree ID
   const [state, handleSubmit] = useForm("maqlblrb"); 
 
   const availableTimeSlots = [
@@ -22,6 +22,14 @@ export default function BookingForm() {
   // Fixes the "Loading..." bug by properly ensuring client-side rendering
   useEffect(() => {
     setIsClient(true);
+    
+    // If current day is Sunday, forward minDate to Monday automatically on mount
+    const today = new Date();
+    if (today.getDay() === 0) {
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      setStartDate(tomorrow);
+    }
   }, []);
 
   const isPastSlot = (timeString: string, selectedDate: Date) => {
@@ -48,6 +56,12 @@ export default function BookingForm() {
     return slotTime < now;
   };
 
+  // Filter out Sundays from react-datepicker
+  const isWeekday = (date: Date) => {
+    const day = date.getDay();
+    return day !== 0; // 0 represents Sunday
+  };
+
   useEffect(() => {
     if (selectedTime && isPastSlot(selectedTime, startDate)) {
       setSelectedTime(null);
@@ -60,8 +74,12 @@ export default function BookingForm() {
     return (
       <div className="p-6 sm:p-8 bg-[#009ffa]/10 border-2 border-[#009ffa] text-[#001321] rounded-2xl font-bold text-center flex flex-col items-center">
         <svg className="w-12 h-12 sm:w-16 sm:h-16 text-[#009ffa] mb-3 sm:mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        <p className="text-base sm:text-lg">Thank you! Your request has been sent.</p>
-        <p className="text-xs sm:text-sm font-medium text-gray-600 mt-2">Our team will verify availability and contact you.</p>
+        <p className="text-base sm:text-lg">
+          {isRescheduling ? "Reschedule Request Sent!" : "Thank you! Your request has been sent."}
+        </p>
+        <p className="text-xs sm:text-sm font-medium text-gray-600 mt-2">
+          Our team will verify availability and confirm your updated slot via email.
+        </p>
       </div>
     );
   }
@@ -69,28 +87,59 @@ export default function BookingForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8 relative z-10">
       <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+      <input type="hidden" name="submission_type" value={isRescheduling ? 'Reschedule Existing Appointment' : 'New Appointment Booking'} />
       <input type="hidden" name="appointment_date" value={startDate.toDateString()} />
       <input type="hidden" name="appointment_time" value={selectedTime || 'No time selected'} />
 
-      {/* 1. Patient Details */}
+      {/* Option to toggle Rescheduling mode */}
+      <div className="p-3 bg-slate-50 border border-gray-200 rounded-xl flex items-center justify-between">
+        <span className="text-xs font-bold text-gray-600">Need to modify an existing booking?</span>
+        <button
+          type="button"
+          onClick={() => setIsRescheduling(!isRescheduling)}
+          className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
+            isRescheduling 
+              ? 'bg-amber-500 text-white' 
+              : 'bg-[#e6f6ff] text-[#009ffa] hover:bg-[#009ffa]/10'
+          }`}
+        >
+          {isRescheduling ? 'Switch to New Booking' : 'Reschedule Here'}
+        </button>
+      </div>
+
+      {/* 1. Patient & Parent Details */}
       <div className="space-y-3 sm:space-y-4">
-        <h4 className="text-[10px] sm:text-[11px] font-bold text-[#009ffa] uppercase tracking-widest border-b pb-1.5 sm:pb-2">1. Child & Parent Details</h4>
+        <h4 className="text-[10px] sm:text-[11px] font-bold text-[#009ffa] uppercase tracking-widest border-b pb-1.5 sm:pb-2">
+          {isRescheduling ? '1. Verify Identity & Original Details' : '1. Child & Parent Details'}
+        </h4>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <input name="patient_name" type="text" placeholder="Child's Full Name" required className="w-full sm:col-span-2 px-3 sm:px-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 text-xs sm:text-sm font-medium focus:bg-white focus:outline-none focus:border-[#009ffa] focus:ring-2 focus:ring-[#009ffa]/20 transition-all" />
           <input name="email" type="email" placeholder="Parent's Email Address" required className="w-full px-3 sm:px-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 text-xs sm:text-sm font-medium focus:bg-white focus:outline-none focus:border-[#009ffa] focus:ring-2 focus:ring-[#009ffa]/20 transition-all" />
           <input name="phone" type="tel" placeholder="Phone Number" required className="w-full px-3 sm:px-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 text-xs sm:text-sm font-medium focus:bg-white focus:outline-none focus:border-[#009ffa] focus:ring-2 focus:ring-[#009ffa]/20 transition-all" />
+          
+          {isRescheduling && (
+            <input 
+              name="original_appointment_info" 
+              type="text" 
+              placeholder="Approx. Date/Time of original booking (if known)" 
+              className="w-full sm:col-span-2 px-3 sm:px-4 py-3 sm:py-3.5 bg-amber-50/50 border border-amber-200 rounded-xl text-gray-900 placeholder-gray-400 text-xs sm:text-sm font-medium focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all" 
+            />
+          )}
         </div>
       </div>
       
-      {/* 2. Date Selection - Only renders DatePicker after client mounts */}
+      {/* 2. Date Selection */}
       <div className="space-y-3 sm:space-y-4 flex flex-col">
-        <h4 className="text-[10px] sm:text-[11px] font-bold text-[#009ffa] uppercase tracking-widest border-b pb-1.5 sm:pb-2">2. Pick a Date</h4>
+        <h4 className="text-[10px] sm:text-[11px] font-bold text-[#009ffa] uppercase tracking-widest border-b pb-1.5 sm:pb-2">
+          {isRescheduling ? '2. Choose Your New Date (Sundays Unavailable)' : '2. Pick a Date (Sundays Unavailable)'}
+        </h4>
         <div className="border border-gray-200 rounded-2xl p-3 sm:p-4 bg-gray-50 shadow-inner flex justify-center w-full sm:inline-block sm:w-auto overflow-hidden min-h-[250px]">
           {isClient ? (
             <DatePicker 
               selected={startDate} 
               onChange={(date: Date | null) => date && setStartDate(date)}
               minDate={new Date()}
+              filterDate={isWeekday}
               inline 
             />
           ) : (
@@ -101,7 +150,9 @@ export default function BookingForm() {
 
       {/* 3. Time Selection */}
       <div className="space-y-3 sm:space-y-4">
-        <h4 className="text-[10px] sm:text-[11px] font-bold text-[#009ffa] uppercase tracking-widest border-b pb-1.5 sm:pb-2">3. Select a Time</h4>
+        <h4 className="text-[10px] sm:text-[11px] font-bold text-[#009ffa] uppercase tracking-widest border-b pb-1.5 sm:pb-2">
+          {isRescheduling ? '3. Select New Time Slot' : '3. Select a Time'}
+        </h4>
         
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3">
           {availableTimeSlots.map((time) => {
@@ -141,11 +192,17 @@ export default function BookingForm() {
         <button 
           type="submit" 
           disabled={state.submitting || !selectedTime}
-          className="w-full flex items-center justify-center gap-2 px-4 py-3.5 sm:py-4 bg-[#009ffa] hover:bg-[#008be0] text-white rounded-xl text-sm sm:text-base font-black transition-all shadow-lg hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          className={`w-full flex items-center justify-center gap-2 px-4 py-3.5 sm:py-4 text-white rounded-xl text-sm sm:text-base font-black transition-all shadow-lg hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0
+            ${isRescheduling 
+              ? 'bg-amber-500 hover:bg-amber-600' 
+              : 'bg-[#009ffa] hover:bg-[#008be0]'
+            }`}
         >
           {state.submitting 
-            ? 'Sending Request...' 
-            : `Confirm Booking for ${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} at ${selectedTime || '...'}`
+            ? 'Processing Request...' 
+            : isRescheduling 
+              ? `Request Reschedule to ${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} at ${selectedTime || '...'}`
+              : `Confirm Booking for ${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} at ${selectedTime || '...'}`
           }
         </button>
       </div>
