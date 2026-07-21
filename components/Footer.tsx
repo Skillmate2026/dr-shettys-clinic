@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function Footer() {
   const whatsappLink = "https://api.whatsapp.com/send/?phone=917019951526&text=Hello%20Doctor,%20I%20would%20like%20to%20book%20an%20appointment.&type=phone_number&app_absent=0";
-  const mapsLink = "https://maps.app.goo.gl/Gq6K8rk4eyc7hVAXA";
+  const mapsLink = "https://www.google.com/maps?q=Dr.+Shetty's+Children's+Clinic,+HSR+Layout,+Bengaluru&output=embed";
   const emailAddress = "drshettyschildrensclinic@gmail.com";
   const phoneNumber = "+917019951526";
 
@@ -13,58 +13,82 @@ export default function Footer() {
         
         {/* Column 1 */}
         <div className="space-y-4">
-          <h2 className="text-2xl font-bold leading-tight">Your Child's <span className="text-[#009ffa]">Health</span><br/>Matters</h2>
-          <p className="text-sm text-gray-300 leading-relaxed">
+          <h2 className="text-2xl font-bold leading-tight relative pb-3">
+            Your Child's <span className="text-[#009ffa]">Health</span><br/>Matters
+            <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-[#009ffa] rounded-full"></span>
+          </h2>
+          <p className="text-sm text-gray-300 leading-relaxed pt-2">
             Compassionate pediatric care for newborns, infants, children, and adolescents. We are committed to providing expert medical care in a warm, child-friendly environment.
           </p>
           <div className="flex items-center space-x-3 text-sm font-semibold">
-            <span className="text-[#009ffa]"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg></span>
+            <span className="text-[#009ffa]">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+              </svg>
+            </span>
             <a href={`tel:${phoneNumber}`} className="hover:text-[#009ffa] transition-colors">+91 70199 51526</a>
           </div>
           <div className="flex items-center space-x-3 text-sm font-semibold pb-2">
-            <span className="text-[#009ffa]"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
+            <span className="text-[#009ffa]">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
             <span>Mon – Sat: 6:00 PM – 10:00 PM (Sun: Closed)</span>
           </div>
           <a 
             href={whatsappLink}
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-block bg-[#009ffa] hover:bg-[#008be0] text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-colors"
+            className="inline-block bg-[#009ffa] hover:bg-[#008be0] text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-colors shadow-md"
           >
             Book Appointment
           </a>
         </div>
 
-        {/* Column 2 */}
+        {/* Column 2 - Quick Links */}
         <div>
-          <h3 className="text-lg font-bold mb-6 inline-block border-b-2 border-[#009ffa] pb-1">Quick Links</h3>
-          <div className="grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-gray-300">
-            <a href="https://drshettyschildrensclinic.com/" className="hover:text-[#009ffa] flex items-center transition-colors">
-              <span className="text-[#009ffa] mr-2">▸</span> Home
+          <h3 className="text-lg font-bold relative pb-3 mb-4">
+            Quick Links
+            <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-[#009ffa] rounded-full"></span>
+          </h3>
+          
+          <div className="grid grid-cols-2 gap-y-5 gap-x-6 text-sm text-gray-300 items-start pt-2">
+            <a href="https://drshettyschildrensclinic.com/" className="hover:text-[#009ffa] flex items-center transition-colors font-medium">
+              <span className="text-gray-500 text-[10px] mr-2">▶</span> Home
             </a>
-            <a href="https://drshettyschildrensclinic.com/#dt_information" className="hover:text-[#009ffa] flex items-center transition-colors">
-              <span className="text-[#009ffa] mr-2">▸</span> Information
+            <a href="https://drshettyschildrensclinic.com/general-pediatric-consultation/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
+              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> General Pediatric Consultation
             </a>
-            <a href="https://drshettyschildrensclinic.com/#dt_choose" className="hover:text-[#009ffa] flex items-center transition-colors">
-              <span className="text-[#009ffa] mr-2">▸</span> Why Choose Us
+            <a href="https://drshettyschildrensclinic.com/vaccination-immunization/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
+              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Vaccination & Immunization
             </a>
-            <a href="https://drshettyschildrensclinic.com/#dt_service" className="hover:text-[#009ffa] flex items-center transition-colors">
-              <span className="text-[#009ffa] mr-2">▸</span> Services
+            <a href="https://drshettyschildrensclinic.com/newborn-infant-care/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
+              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Newborn & Infant Care
             </a>
-            <a href="https://drshettyschildrensclinic.com/#dt_faq" className="hover:text-[#009ffa] flex items-center transition-colors">
-              <span className="text-[#009ffa] mr-2">▸</span> FAQs
+            <a href="https://drshettyschildrensclinic.com/developmental-screening/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
+              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Developmental Screening
             </a>
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-[#009ffa] flex items-center transition-colors">
-              <span className="text-[#009ffa] mr-2">▸</span> Book Appointment
+            <a href="https://drshettyschildrensclinic.com/baby-feeding-consultation/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
+              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Baby Feeding Consultation
+            </a>
+            <a href="https://drshettyschildrensclinic.com/wheezing-asthma-care/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
+              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Wheezing & Asthma Care
+            </a>
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
+              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Book Appointment
             </a>
           </div>
         </div>
 
-        {/* Column 3 - Updated Reach Out Column */}
+        {/* Column 3 - Reach Out */}
         <div className="space-y-4">
-          <h3 className="text-lg font-bold mb-4 inline-block border-b-2 border-[#009ffa] pb-1">Reach Out</h3>
+          <h3 className="text-lg font-bold relative pb-3 mb-4">
+            Reach Out
+            <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-[#009ffa] rounded-full"></span>
+          </h3>
           
-          <div>
+          <div className="pt-2">
             <p className="text-gray-400 text-xs mb-0.5">Email</p>
             <a href={`mailto:${emailAddress}`} className="text-sm font-semibold break-words hover:text-[#009ffa] transition-colors">
               {emailAddress}
@@ -93,8 +117,7 @@ export default function Footer() {
             </a>
           </div>
 
-          <div>
-            <p className="text-gray-400 text-xs mb-2 mt-2">Connect With Us</p>
+          <div className="pt-2">
             <div className="flex items-center space-x-2">
               {/* Instagram */}
               <a 
@@ -150,19 +173,36 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Column 4 */}
-        <div>
-          <h3 className="text-lg font-bold mb-6 inline-block border-b-2 border-[#009ffa] pb-1">Need Pediatric Advice?</h3>
-          <p className="text-sm text-gray-300 leading-relaxed mb-6">
+        {/* Column 4 - Need Pediatric Advice & Map */}
+        <div className="flex flex-col space-y-4">
+          <h3 className="text-lg font-bold relative pb-3">
+            Need Pediatric Advice?
+            <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-[#009ffa] rounded-full"></span>
+          </h3>
+          <p className="text-sm text-gray-300 leading-relaxed pt-2">
             Have questions about your child's health? Contact Dr. Shetty's Children's Clinic to schedule an appointment or speak with our team.
           </p>
+          
+          {/* Embedded Interactive Map Container */}
+          <div className="w-full pt-1">
+            <iframe
+              src="https://www.google.com/maps?q=Dr.+Shetty's+Children's+Clinic,+HSR+Layout,+Bengaluru&output=embed"
+              width="100%"
+              height="220"
+              style={{ border: 0, borderRadius: '10px' }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
           <a 
-            href={whatsappLink}
+            href={mapsLink}
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-block bg-[#009ffa] hover:bg-[#008be0] text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-colors"
+            className="w-full text-center bg-[#009ffa] hover:bg-[#008be0] text-white py-3 rounded-full font-semibold text-sm transition-colors shadow-md mt-2"
           >
-            Book Appointment
+            Find Us on Google Maps
           </a>
         </div>
       </div>
@@ -174,10 +214,12 @@ export default function Footer() {
         {/* Back to top button */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="absolute right-0 bg-[#009ffa] p-2 rounded-full text-white hover:bg-[#008be0] transition-colors"
+          className="absolute right-0 bg-[#009ffa] p-2.5 rounded-full text-white hover:bg-[#008be0] transition-colors shadow-md"
           aria-label="Scroll to top"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+          </svg>
         </button>
       </div>
     </footer>
