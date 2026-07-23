@@ -1,7 +1,10 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Footer() {
+  // State to control the dropdown
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+
   const whatsappLink = "https://api.whatsapp.com/send/?phone=917019951526&text=Hello%20Doctor,%20I%20would%20like%20to%20book%20an%20appointment.&type=phone_number&app_absent=0";
   const mapsLink = "https://www.google.com/maps?q=Dr.+Shetty's+Children's+Clinic,+HSR+Layout,+Bengaluru&output=embed";
   const emailAddress = "drshettyschildrensclinic@gmail.com";
@@ -46,37 +49,71 @@ export default function Footer() {
           </a>
         </div>
 
-        {/* Column 2 - Quick Links */}
+        {/* Column 2 - Quick Links (UPDATED) */}
         <div>
           <h3 className="text-lg font-bold relative pb-3 mb-4">
             Quick Links
             <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-[#009ffa] rounded-full"></span>
           </h3>
           
-          <div className="grid grid-cols-2 gap-y-5 gap-x-6 text-sm text-gray-300 items-start pt-2">
-            <a href="https://drshettyschildrensclinic.com/" className="hover:text-[#009ffa] flex items-center transition-colors font-medium">
+          <div className="flex flex-col space-y-4 text-sm text-gray-300 items-start pt-2">
+            <a href="/" className="hover:text-[#009ffa] flex items-center transition-colors font-medium">
               <span className="text-gray-500 text-[10px] mr-2">▶</span> Home
             </a>
-            <a href="https://drshettyschildrensclinic.com/general-pediatric-consultation/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
-              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> General Pediatric Consultation
+            
+            <a href="https://drshettyschildrensclinic.com/about-us/" className="hover:text-[#009ffa] flex items-center transition-colors font-medium">
+              <span className="text-gray-500 text-[10px] mr-2">▶</span> About Us
             </a>
-            <a href="https://drshettyschildrensclinic.com/vaccination-immunization/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
-              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Vaccination & Immunization
+
+            {/* Interactive Dropdown for Our Services */}
+            <div className="w-full">
+              <button 
+                onClick={() => setIsServicesOpen(!isServicesOpen)}
+                className="hover:text-[#009ffa] flex items-center justify-between transition-colors font-medium w-full pr-4 md:pr-10 focus:outline-none group"
+              >
+                <div className="flex items-center">
+                  <span className="text-gray-500 text-[10px] mr-2 group-hover:text-[#009ffa]">▶</span> Our Services
+                </div>
+                <svg 
+                  className={`w-4 h-4 transform transition-transform duration-300 ${isServicesOpen ? 'rotate-180 text-[#009ffa]' : 'text-gray-400'}`} 
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* Smooth opening accordion content */}
+              <div 
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  isServicesOpen ? 'max-h-[500px] opacity-100 mt-3' : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="flex flex-col space-y-2.5 pl-5 border-l border-gray-700 ml-1.5 py-1">
+                  {/* Link to the main services page */}
+                  <a href="https://drshettyschildrensclinic.com/explore-pediatric-services-including-vaccinations-newborn-care-developmental-screening-fever-treatment-nutrition-guidance-and-routine-child-health-checkups/" className="hover:text-[#009ffa] text-gray-400 hover:text-[#009ffa] text-xs transition-colors font-medium">
+                    View All Services
+                  </a>
+                  <a href="/general-pediatric-consultation/" className="hover:text-[#009ffa] text-gray-400 text-xs transition-colors">General Pediatric Consultation</a>
+                  <a href="/vaccination-immunization/" className="hover:text-[#009ffa] text-gray-400 text-xs transition-colors">Vaccination & Immunization</a>
+                  <a href="/newborn-infant-care/" className="hover:text-[#009ffa] text-gray-400 text-xs transition-colors">Newborn & Infant Care</a>
+                  <a href="/developmental-screening/" className="hover:text-[#009ffa] text-gray-400 text-xs transition-colors">Developmental Screening</a>
+                  <a href="/baby-feeding-consultation/" className="hover:text-[#009ffa] text-gray-400 text-xs transition-colors">Baby Feeding Consultation</a>
+                  <a href="/fever-in-children/" className="hover:text-[#009ffa] text-gray-400 text-xs transition-colors">Fever in children</a>
+                  <a href="/diarrhea-treatment/" className="hover:text-[#009ffa] text-gray-400 text-xs transition-colors">Diarrhea Treatment</a>
+                  <a href="/wheezing-asthma-care/" className="hover:text-[#009ffa] text-gray-400 text-xs transition-colors">Wheezing & Asthma Care</a>
+                  <a href="/adolescent-health/" className="hover:text-[#009ffa] text-gray-400 text-xs transition-colors">Adolescent Health</a>
+                  <a href="/school-health-checkups/" className="hover:text-[#009ffa] text-gray-400 text-xs transition-colors">School Health Checkups</a>
+                  <a href="/sports-fitness-checkups/" className="hover:text-[#009ffa] text-gray-400 text-xs transition-colors">Sports Fitness Checkups</a>
+                </div>
+              </div>
+            </div>
+
+            <a href="https://drshettyschildrensclinic.com/gallery/" className="hover:text-[#009ffa] flex items-center transition-colors font-medium">
+              <span className="text-gray-500 text-[10px] mr-2">▶</span> Gallery
             </a>
-            <a href="https://drshettyschildrensclinic.com/newborn-infant-care/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
-              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Newborn & Infant Care
-            </a>
-            <a href="https://drshettyschildrensclinic.com/developmental-screening/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
-              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Developmental Screening
-            </a>
-            <a href="https://drshettyschildrensclinic.com/baby-feeding-consultation/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
-              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Baby Feeding Consultation
-            </a>
-            <a href="https://drshettyschildrensclinic.com/wheezing-asthma-care/" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
-              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Wheezing & Asthma Care
-            </a>
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-[#009ffa] flex items-start transition-colors font-medium">
-              <span className="text-gray-500 text-[10px] mr-2 mt-1">▶</span> Book Appointment
+            
+            <a href="https://book.drshettyschildrensclinic.com/" target="_blank" rel="noopener noreferrer" className="hover:text-[#009ffa] flex items-center transition-colors font-medium">
+              <span className="text-gray-500 text-[10px] mr-2">▶</span> Book Appointment
             </a>
           </div>
         </div>
